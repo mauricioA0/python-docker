@@ -1,14 +1,7 @@
-from marshmallow import fields
+from marshmallow import Schema, fields
 from flask_marshmallow import Marshmallow
 
 ma = Marshmallow()
-
-
-class PatientSchema(ma.Schema):
-    patient_id = fields.Integer(required=True)
-    name = fields.String(required=True)
-    last_name = fields.String(required=True)
-    address = fields.String()
 
 
 class DiagnosticReportDataSchema(ma.Schema):
@@ -16,4 +9,5 @@ class DiagnosticReportDataSchema(ma.Schema):
     name = fields.String()
     active = fields.Boolean()
     date = fields.DateTime()
+    results = fields.String()
     patient_id = fields.Integer()

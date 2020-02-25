@@ -5,9 +5,9 @@ from flask_restful import Resource
 
 from app import db
 
-from decorators import abort_if_not_exist
-from models import DiagnosticReportDataModel
-from schemas import DiagnosticReportDataSchema
+from decorators.abort_if_not_exists import abort_if_not_exists
+from models.diagnostic_report_data import DiagnosticReportDataModel
+from schemas.diagnostic_report_data import DiagnosticReportDataSchema
 
 diagnostics_report_data_schema = DiagnosticReportDataSchema(many=True)
 
@@ -38,7 +38,7 @@ def save_diagnostic_report(patient_id, response):
 
 
 class PatientsByIdWithDiagnosticReportResource(Resource):
-    decorators = [abort_if_not_exist(entity="Diagnostic report")]
+    decorators = [abort_if_not_exists(entity="Diagnostic report")]
 
     @classmethod
     def get(cls, patient_id):

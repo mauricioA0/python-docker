@@ -5,9 +5,9 @@ from flask_restful import Resource
 
 from app import db
 
-from decorators import abort_if_not_exist
-from models import PatientsModel
-from schemas import PatientSchema
+from decorators.abort_if_not_exists import abort_if_not_exists
+from models.patients import PatientsModel
+from schemas.patient import PatientSchema
 
 API_ROOT = os.getenv("API_ROOT")
 
@@ -45,7 +45,7 @@ def save_patient(response):
 
 
 class PatientByIdResource(Resource):
-    decorators = [abort_if_not_exist(entity="Patient")]
+    decorators = [abort_if_not_exists(entity="Patient")]
 
     @classmethod
     def get(cls, patient_id):

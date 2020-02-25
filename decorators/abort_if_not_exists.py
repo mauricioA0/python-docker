@@ -2,7 +2,7 @@ from functools import wraps
 from flask import abort
 
 
-def abort_if_not_exist(entity):
+def abort_if_not_exists(entity):
     def inner_function(function):
         @wraps(function)
         def wrapper(*args, **kwargs):
