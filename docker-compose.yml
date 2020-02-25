@@ -1,0 +1,23 @@
+server:
+  image: python:3
+  working_dir: /mnt
+  volumes:
+    - .:/mnt
+  links:
+   - db
+  ports:
+    - '5000:5000'
+  environment:
+    PYTHONPATH: $PYTHONPATH:./
+  command: python run.py
+
+db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: challenge
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
