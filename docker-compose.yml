@@ -1,23 +1,31 @@
-server:
-  image: python:3
-  working_dir: /mnt
-  volumes:
-    - .:/mnt
-  links:
-   - db
-  ports:
-    - '5000:5000'
-  environment:
-    PYTHONPATH: $PYTHONPATH:./
-  command: python run.py
+version: "3"
 
-db:
+services:
+  server:
+    build: .
+    networks:
+      - backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://admin:secret@db:5432/challenge
+    links:
+      - db
+
+  db:
     image: postgres
     ports:
-      - "5432:5432"
+      - "5431:5432"
+    networks:
+      - backend
     environment:
       POSTGRES_DB: challenge
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+
+networks:
+  backend:
